@@ -3,7 +3,13 @@ import React from 'react';
 import { AppProvider } from './App.provider';
 
 import { BottomTabNavigator } from './screens/BottomTabs.navigator';
+import { Platform, UIManager } from 'react-native';
 
+if (Platform.OS === 'android') {
+  if (UIManager.setLayoutAnimationEnabledExperimental) {
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+}
 const App: React.FC = () => {
   return (
     <AppProvider>

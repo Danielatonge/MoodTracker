@@ -1,18 +1,26 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  LayoutAnimation,
+} from 'react-native';
+import React, { useCallback } from 'react';
 import { MoodOptionWithTimestamp } from '../types';
 import { format } from 'date-fns';
 import { theme } from '../theme';
+import { useAppContext } from '../App.provider';
 
-type MoodItemProps = MoodOptionWithTimestamp & {
-  onDelete: (moodToDelete: MoodOptionWithTimestamp) => void;
-};
+type MoodItemProps = MoodOptionWithTimestamp;
 
-const MoodItemRow: React.FC<MoodItemProps> = ({
-  mood,
-  timestamp,
-  onDelete,
-}) => {
+const MoodItemRow: React.FC<MoodItemProps> = ({ mood, timestamp }) => {
+  const appContext = useAppContext();
+
+  const handleOnDelete = useCallback(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    appContext.onDelete({ mood, timestamp });
+  }, [appContext, mood, timestamp]);
+
   return (
     <View style={styles.itemWrapper}>
       <Text
@@ -30,15 +38,11 @@ const MoodItemRow: React.FC<MoodItemProps> = ({
         {format(new Date(timestamp), "d MMM, yyyy 'at' hh:mmaaa")}
       </Text>
 
-      <Pressable
-        onPress={() => {
-          onDelete({ mood, timestamp });
-        }}
-        style={{ padding: 8 }}>
+      <Pressable onPress={handleOnDelete} style={{ padding: 8 }}>
         <Text
           style={{
             fontFamily: theme.fontFamilyRegular,
-            color: theme.colorPurple,
+            color: theme.colorBlue,
           }}>
           Delete
         </Text>
