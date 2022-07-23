@@ -32,12 +32,13 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelectMood }) => {
   if (hasSelected) {
     return (
       <View style={styles.moodPickerWrapper}>
-        <Image
-          source={imageSrc}
-          style={{ alignSelf: 'center', marginBottom: 20 }}
-        />
+        <Image source={imageSrc} style={{ alignSelf: 'center' }} />
         <Pressable onPress={() => setHasSelected(false)} style={styles.button}>
-          <Text style={{ fontWeight: 'bold', color: 'white' }}>
+          <Text
+            style={{
+              fontFamily: theme.fontFamilyBold,
+              color: 'white',
+            }}>
             Choose another!
           </Text>
         </Pressable>
@@ -48,7 +49,11 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelectMood }) => {
   return (
     <View style={styles.moodPickerWrapper}>
       <Text
-        style={{ fontSize: 20, fontWeight: 'bold', color: theme.colorWhite }}>
+        style={{
+          fontSize: 20,
+          fontFamily: theme.fontFamilyBold,
+          color: theme.colorWhite,
+        }}>
         How are you right now?
       </Text>
       <View style={styles.iconsContainer}>
@@ -73,7 +78,13 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelectMood }) => {
         ))}
       </View>
       <Pressable onPress={() => moodSelected()} style={styles.button}>
-        <Text style={{ fontWeight: 'bold', color: 'white' }}>Choose</Text>
+        <Text
+          style={{
+            fontFamily: theme.fontFamilyBold,
+            color: 'white',
+          }}>
+          Choose
+        </Text>
       </Pressable>
     </View>
   );
@@ -82,7 +93,7 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelectMood }) => {
 const styles = StyleSheet.create({
   iconsContainer: {
     flexDirection: 'row',
-    padding: 20,
+    paddingHorizontal: 20,
     justifyContent: 'space-between',
   },
   moodText: {
@@ -102,7 +113,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 8,
-    fontWeight: 'bold',
+    fontFamily: theme.fontFamilyBold,
     color: '#454C73',
     textAlign: 'center',
   },
@@ -121,5 +132,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colorPurple,
     borderRadius: 10,
     backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'space-between',
+    height: 240,
   },
 });

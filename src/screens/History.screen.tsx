@@ -12,7 +12,11 @@ export const History = () => {
         data={appContext.moodList}
         keyExtractor={item => `${item.timestamp}`}
         renderItem={({ item }) => (
-          <MoodItemRow mood={item.mood} timestamp={item.timestamp} />
+          <MoodItemRow
+            mood={item.mood}
+            timestamp={item.timestamp}
+            onDelete={appContext.onDelete}
+          />
         )}
       />
     </View>
