@@ -1,4 +1,4 @@
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, View, Pressable } from 'react-native';
 import React from 'react';
 import { MoodPicker } from '../components/MoodPicker';
 import { useAppContext } from '../App.provider';
@@ -8,6 +8,7 @@ const imageUrl =
 
 export const Home = () => {
   const appContext = useAppContext();
+
   return (
     <ImageBackground source={{ uri: imageUrl }} style={styles.container}>
       <MoodPicker onSelectMood={appContext.onSelected} />
@@ -20,5 +21,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 10,
+  },
+  box: {
+    height: 100,
+    width: 100,
+    backgroundColor: 'gray',
   },
 });

@@ -2,6 +2,12 @@ import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import React, { useCallback, useState } from 'react';
 import { MoodOptionType } from '../types';
 import { theme } from '../theme';
+import Reanimated, {
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
+
+const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
 const moodOptions: MoodOptionType[] = [
   { emoji: '🧑‍💻', description: 'studious' },
@@ -20,6 +26,14 @@ const imageSrc = require('../../assets/butterflies.png');
 export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelectMood }) => {
   const [selectedMood, setSelectedMood] = useState<MoodOptionType>();
   const [hasSelected, setHasSelected] = useState(false);
+
+  const buttonStyle = useAnimatedStyle(
+    () => ({
+      opacity: selectedMood ? withTiming(1) : withTiming(0.5),
+      transform: [{ scale: selectedMood ? withTiming(1) : withTiming(0.8) }],
+    }),
+    [selectedMood],
+  );
 
   const moodSelected = useCallback(() => {
     if (selectedMood) {
@@ -77,7 +91,9 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelectMood }) => {
           </View>
         ))}
       </View>
-      <Pressable onPress={() => moodSelected()} style={styles.button}>
+      <ReanimatedPressable
+        onPress={() => moodSelected()}
+        style={[styles.button, buttonStyle]}>
         <Text
           style={{
             fontFamily: theme.fontFamilyBold,
@@ -85,7 +101,7 @@ export const MoodPicker: React.FC<MoodPickerProps> = ({ onSelectMood }) => {
           }}>
           Choose
         </Text>
-      </Pressable>
+      </ReanimatedPressable>
     </View>
   );
 };
